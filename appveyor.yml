@@ -17,9 +17,11 @@ build: off
 cache:
   - vendor/bundle
 
+services:
+  - postgresql101
+
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
-  - ridk exec pacman -Syu --noconfirm mingw-w64-x86_64-sqlite3
   - bundle config --local path vendor/bundle
   - bundle install
 
