@@ -1,0 +1,41 @@
+# This file was generated on 2019-01-03T20:34:23+00:00 from the rspec-dev repo.
+# DO NOT modify it by hand as your changes will get lost the next time it is generated.
+
+version: "{build}"
+
+# This will build all PRs targetting matching branches.
+# Without this, each PR builds twice -- once for the PR branch HEAD,
+# and once for the merge commit that github creates for each mergable PR.
+branches:
+  only:
+    - master
+    - /.*-maintenance$/
+
+# Disable normal Windows builds in favor of our test script.
+build: off
+
+cache:
+  - vendor/bundle
+
+services:
+  - postgresql101
+
+install:
+  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - bundle config --local path vendor/bundle
+  - bundle install
+
+before_test:
+  - ruby --version
+  - gem --version
+  - bundle --version
+
+test_script:
+  - bundle exec rails db:create
+  - bundle exec rails db:migrate
+  - bundle exec rails runner "p Rails.application"
+  - dir tmp
+
+environment:
+  matrix:
+    - ruby_version: 26-x64
