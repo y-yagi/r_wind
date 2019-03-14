@@ -32,7 +32,7 @@ before_test:
   - bundle --version
 
 test_script:
-  - bin/rails t
+  -  bundle exec rails test
 
 environment:
   matrix:
