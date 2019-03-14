@@ -18,11 +18,8 @@ cache:
   - vendor/bundle
 
 install:
-  - curl -fsS --retry 3 --retry-connrefused -o sqlite3.zip https://sqlite.org/2017/sqlite-dll-win64-x64-3160200.zip
-  - 7z e sqlite3.zip -y
-  - set SQLITE3_LIB_DIR=%APPVEYOR_BUILD_FOLDER%
-  - '"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\lib.exe" /def:sqlite3.def /OUT:sqlite3.lib /machine:x64'
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - ridk exec pacman -Syu --noconfirm mingw-w64-x86_64-sqlite3
   - bundle config --local path vendor/bundle
   - bundle install
 
@@ -32,7 +29,7 @@ before_test:
   - bundle --version
 
 test_script:
-  -  bundle exec rails test
+  - bundle exec rails test
 
 environment:
   matrix:
