@@ -33,8 +33,7 @@ before_test:
 test_script:
   - bundle exec rails db:create
   - bundle exec rails db:migrate
-  - bundle exec rails runner "p Rails.application"
-  - dir tmp
+  - bundle exec rails test
 
 environment:
   matrix:
